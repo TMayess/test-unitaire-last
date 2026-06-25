@@ -4,6 +4,7 @@ import com.example.exo12.dto.CreateReservationRequest;
 import com.example.exo12.model.Reservation;
 import com.example.exo12.service.ReservationService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +19,17 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ResponseEntity<Reservation> create(@Valid @RequestBody CreateReservationRequest request) { return null; }
+    public ResponseEntity<Reservation> create(@Valid @RequestBody CreateReservationRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.createReservation(request));
+    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Reservation> getById(@PathVariable String id) { return null; }
+    public ResponseEntity<Reservation> getById(@PathVariable String id) {
+        return ResponseEntity.ok(service.getById(id));
+    }
 
     @PatchMapping("/{id}/cancel")
-    public ResponseEntity<Reservation> cancel(@PathVariable String id) { return null; }
+    public ResponseEntity<Reservation> cancel(@PathVariable String id) {
+        return ResponseEntity.ok(service.cancelReservation(id));
+    }
 }

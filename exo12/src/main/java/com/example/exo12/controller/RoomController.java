@@ -4,6 +4,7 @@ import com.example.exo12.dto.CreateRoomRequest;
 import com.example.exo12.model.Room;
 import com.example.exo12.service.RoomService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +21,12 @@ public class RoomController {
     }
 
     @PostMapping
-    public ResponseEntity<Room> create(@Valid @RequestBody CreateRoomRequest request) { return null; }
+    public ResponseEntity<Room> create(@Valid @RequestBody CreateRoomRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.createRoom(request));
+    }
 
     @GetMapping
-    public ResponseEntity<List<Room>> getAll() { return null; }
+    public ResponseEntity<List<Room>> getAll() {
+        return ResponseEntity.ok(service.getAllRooms());
+    }
 }

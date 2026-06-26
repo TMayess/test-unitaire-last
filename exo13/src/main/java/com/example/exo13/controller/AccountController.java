@@ -23,31 +23,31 @@ public class AccountController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Account create(@RequestBody CreateAccountRequest request) {
-        throw new UnsupportedOperationException();
+        return accountService.createAccount(request);
     }
 
     @GetMapping("/{number}")
     public Account getOne(@PathVariable String number) {
-        throw new UnsupportedOperationException();
+        return accountService.getByNumber(number);
     }
 
     @GetMapping
     public List<Account> getAll() {
-        throw new UnsupportedOperationException();
+        return accountService.getAllAccounts();
     }
 
     @PostMapping("/{number}/deposit")
     public Account deposit(@PathVariable String number, @RequestBody AmountRequest request) {
-        throw new UnsupportedOperationException();
+        return accountService.deposit(number, request);
     }
 
     @PostMapping("/{number}/withdraw")
     public Account withdraw(@PathVariable String number, @RequestBody AmountRequest request) {
-        throw new UnsupportedOperationException();
+        return accountService.withdraw(number, request);
     }
 
     @PostMapping("/transfer")
     public void transfer(@RequestBody TransferRequest request) {
-        throw new UnsupportedOperationException();
+        accountService.transfer(request);
     }
 }

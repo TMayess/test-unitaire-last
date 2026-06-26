@@ -123,8 +123,6 @@ class AccountServiceTest {
     @Test
     void deposit_shouldThrowWhenAmountIsZero() {
         // Arrange
-        Account account = new Account("FR001", "Alice", 100.0);
-        when(repository.findByNumber("FR001")).thenReturn(Optional.of(account));
         AmountRequest request = new AmountRequest(0.0);
 
         // Act & Assert
@@ -135,8 +133,6 @@ class AccountServiceTest {
     @Test
     void deposit_shouldThrowWhenAmountIsNegative() {
         // Arrange
-        Account account = new Account("FR001", "Alice", 100.0);
-        when(repository.findByNumber("FR001")).thenReturn(Optional.of(account));
         AmountRequest request = new AmountRequest(-10.0);
 
         // Act & Assert
@@ -162,8 +158,6 @@ class AccountServiceTest {
     @Test
     void withdraw_shouldThrowWhenAmountIsZero() {
         // Arrange
-        Account account = new Account("FR001", "Alice", 200.0);
-        when(repository.findByNumber("FR001")).thenReturn(Optional.of(account));
         AmountRequest request = new AmountRequest(0.0);
 
         // Act & Assert
@@ -174,8 +168,6 @@ class AccountServiceTest {
     @Test
     void withdraw_shouldThrowWhenAmountIsNegative() {
         // Arrange
-        Account account = new Account("FR001", "Alice", 200.0);
-        when(repository.findByNumber("FR001")).thenReturn(Optional.of(account));
         AmountRequest request = new AmountRequest(-20.0);
 
         // Act & Assert

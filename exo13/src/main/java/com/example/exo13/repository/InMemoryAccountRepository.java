@@ -15,21 +15,22 @@ public class InMemoryAccountRepository implements AccountRepository {
 
     @Override
     public boolean existsByNumber(String number) {
-        throw new UnsupportedOperationException();
+        return store.containsKey(number);
     }
 
     @Override
     public Account save(Account account) {
-        throw new UnsupportedOperationException();
+        store.put(account.getNumber(), account);
+        return account;
     }
 
     @Override
     public Optional<Account> findByNumber(String number) {
-        throw new UnsupportedOperationException();
+        return Optional.ofNullable(store.get(number));
     }
 
     @Override
     public List<Account> findAll() {
-        throw new UnsupportedOperationException();
+        return new ArrayList<>(store.values());
     }
 }

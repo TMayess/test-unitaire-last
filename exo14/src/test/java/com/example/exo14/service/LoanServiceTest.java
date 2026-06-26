@@ -101,7 +101,6 @@ class LoanServiceTest {
     void createLoan_shouldThrowWhenMemberIsSuspended() {
         // Arrange
         when(memberRepository.findById("M002")).thenReturn(Optional.of(suspendedMember));
-        when(bookRepository.findById("B001")).thenReturn(Optional.of(availableBook));
 
         // Act & Assert
         assertThatThrownBy(() -> loanService.createLoan("M002", "B001", today))
@@ -114,7 +113,6 @@ class LoanServiceTest {
         Loan loan = new Loan("L001", "M001", "B001", today.minusDays(10));
         when(loanRepository.findById("L001")).thenReturn(Optional.of(loan));
         when(bookRepository.findById("B001")).thenReturn(Optional.of(availableBook));
-        when(memberRepository.findById("M001")).thenReturn(Optional.of(activeMember));
         when(loanRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
 
         // Act
@@ -131,7 +129,6 @@ class LoanServiceTest {
         Loan loan = new Loan("L001", "M001", "B001", today.minusDays(10));
         when(loanRepository.findById("L001")).thenReturn(Optional.of(loan));
         when(bookRepository.findById("B001")).thenReturn(Optional.of(availableBook));
-        when(memberRepository.findById("M001")).thenReturn(Optional.of(activeMember));
         when(loanRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
 
         // Act

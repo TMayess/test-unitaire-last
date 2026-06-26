@@ -2,6 +2,8 @@ package com.example.exo14.service;
 
 import com.example.exo14.exception.BookUnavailableException;
 import com.example.exo14.exception.MemberSuspendedException;
+import com.example.exo14.model.Book;
+import com.example.exo14.model.Member;
 import com.example.exo14.model.Reservation;
 import com.example.exo14.repository.BookRepository;
 import com.example.exo14.repository.MemberRepository;
@@ -26,14 +28,26 @@ public class ReservationService {
     }
 
     public Reservation reserve(String memberId, String bookId) {
-        throw new UnsupportedOperationException();
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("Member not found: " + memberId));
+        if (member.isSuspended()) {
+            throw new MemberSuspendedException(memberId);
+        }
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new IllegalArgumentException("Book not found: " + bookId));
+        if (book.isAvailable()) {
+            throw new BookUnavailableException(bookId);
+        }
+        Reservation reservation = new Reservation(UUID.randomUUID().toString(), memberId, bookId, LocalDate.now());
+        return reservationRepository.save(reservation);
     }
 
     public List<Reservation> getReservationsForBook(String bookId) {
-        throw new UnsupportedOperationException();
+        return reservationRepository.findByBookId(bookId);
     }
 
     public void notifyNextReservation(String bookId) {
-        throw new UnsupportedOperationException();
+        reservationRepository.findNextByBookId(bookId)
+                .ifPresent(r -> reservationRepository.delete(r.getId()));
     }
 }

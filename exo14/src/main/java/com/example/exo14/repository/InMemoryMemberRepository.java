@@ -13,11 +13,12 @@ public class InMemoryMemberRepository implements MemberRepository {
 
     @Override
     public Optional<Member> findById(String id) {
-        throw new UnsupportedOperationException();
+        return Optional.ofNullable(store.get(id));
     }
 
     @Override
     public Member save(Member member) {
-        throw new UnsupportedOperationException();
+        store.put(member.getId(), member);
+        return member;
     }
 }

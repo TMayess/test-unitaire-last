@@ -13,16 +13,19 @@ public class InMemoryLoanRepository implements LoanRepository {
 
     @Override
     public Optional<Loan> findById(String id) {
-        throw new UnsupportedOperationException();
+        return Optional.ofNullable(store.get(id));
     }
 
     @Override
     public Optional<Loan> findActiveByBookId(String bookId) {
-        throw new UnsupportedOperationException();
+        return store.values().stream()
+                .filter(l -> l.getBookId().equals(bookId) && l.getReturnDate() == null)
+                .findFirst();
     }
 
     @Override
     public Loan save(Loan loan) {
-        throw new UnsupportedOperationException();
+        store.put(loan.getId(), loan);
+        return loan;
     }
 }

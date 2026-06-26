@@ -13,11 +13,12 @@ public class InMemoryBookRepository implements BookRepository {
 
     @Override
     public Optional<Book> findById(String id) {
-        throw new UnsupportedOperationException();
+        return Optional.ofNullable(store.get(id));
     }
 
     @Override
     public Book save(Book book) {
-        throw new UnsupportedOperationException();
+        store.put(book.getId(), book);
+        return book;
     }
 }
